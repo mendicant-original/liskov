@@ -1,0 +1,20 @@
+development:
+  adapter: postgresql
+  database: liskov-devel
+  username: root
+  host: localhost
+  min_messages: error
+
+test:
+  adapter: postgresql
+  database: liskov-test
+  username: root
+  host: localhost
+  min_messages: error
+
+production:
+  adapter: postgresql
+  database: liskov-production
+  username: root
+  host: localhost
+  min_messages: error

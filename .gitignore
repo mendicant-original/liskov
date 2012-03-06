@@ -1,0 +1,14 @@
+# Ignore bundler config
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Clubhouse Fixtures
+/test/fixtures/clubhouse/**/*.json
+
+# Configuration Files
+/config/database.yml
+/config/initializers/omniauth.rb
+/config/initializers/secret_token.rb
