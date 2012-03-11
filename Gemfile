@@ -11,6 +11,9 @@ gem 'sass'
 
 gem 'draper', :git => "git://github.com/jcasimir/draper.git"
 
+gem 'rainbow'
+gem 'highline', :require => false
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -26,10 +29,6 @@ group 'test' do
   gem 'factory_girl_rails'
   gem 'colorific'
   gem 'test_notifier'
-end
-
-group :development do
-  gem 'rainbow'
 end
 
 group :production do

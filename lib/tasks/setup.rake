@@ -1,17 +1,21 @@
 require 'fileutils'
 require 'securerandom'
+require 'highline'
 
 desc 'Setup project for development / deploy'
 task :setup do
 
+  console = HighLine.new
+
   section "Configuration Files" do
 
-    database       = File.join(Rails.root, 'config', 'database.yml')
-    secret_token   = File.join(Rails.root, 'config', 'initializers', 'secret_token.rb')
-    omniauth       = File.join(Rails.root, 'config', 'initializers', 'omniauth.rb')
+    database       = Rails.root.join('config', 'database.yml')
+    secret_token   = Rails.root.join('config', 'initializers', 'secret_token.rb')
+    omniauth       = Rails.root.join('config', 'initializers', 'omniauth.rb')
+    clubhouse_dir  = Rails.root.join('test', 'fixtures', 'clubhouse', 'people')
 
     unless File.exists?(database)
-      create_file(database, "Database config", true)
+      create_from_example(database, "Database config", true)
     else
       puts "Database config file already exists"
     end
@@ -27,9 +31,22 @@ task :setup do
     end
 
     unless File.exists?(omniauth)
-      create_file(omniauth, "Omniauth config")
+      create_from_example(omniauth, "Omniauth config")
     else
-      "Omniauth config file already exists"
+      puts "Omniauth config file already exists"
+    end
+
+    if Dir.glob(clubhouse_dir.join('*.json')).empty?
+      puts "" # Empty Line
+      puts "It looks like you don't have a clubhouse fixture setup."
+      puts "You'll need if you are running in development mode"
+
+      if console.agree("Would you like to create one now?")
+        github = console.ask("What github nickname would you like to use?") { |q| q.validate = /\S+/}
+
+        create_file(clubhouse_dir.join('github_nickname.json.example'),
+          clubhouse_dir.join("#{github}.json"), 'clubhouse', true)
+      end
     end
 
   end
@@ -90,13 +107,17 @@ def silence
   return_value
 end
 
-def create_file(file, name, requires_edit=false)
-  FileUtils.cp(file + '.example', file)
+def create_file(source, destination, name, requires_edit=false)
+  FileUtils.cp(source, destination)
   puts "#{name} file created".color(:green)
 
   if requires_edit
-    puts "Update #{file} and run `bundle exec rake setup` to continue".color(:red)
-    system(ENV['EDITOR'], file) unless ENV['EDITOR'].blank?
+    puts "Update #{destination} and run `bundle exec rake setup` to continue".color(:red)
+    system(ENV['EDITOR'], destination.to_s) unless ENV['EDITOR'].blank?
     exit
   end
+end
+
+def create_from_example(file, name, requires_edit = false)
+  create_file(file.to_s + '.example', file, name, requires_edit)
 end
