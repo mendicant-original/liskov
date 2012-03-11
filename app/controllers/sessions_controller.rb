@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :user_required
+  skip_before_filter :person_required
 
   def create
     begin
@@ -10,13 +10,13 @@ class SessionsController < ApplicationController
 
     # TODO check person's permissions for Liskov
 
-    self.current_user = person
+    self.current_person = person
 
     redirect_to request.env['omniauth.origin'] || root_path
   end
 
   def destroy
-    self.current_user = nil
+    self.current_person = nil
 
     redirect_to request.env['HTTP_REFERER'] || root_path
   end
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   def failure
     flash[:error] = "There was a problem logging in. Please try again"
 
-    self.current_user = nil # Try destroying the current_user
+    self.current_person = nil # Try destroying the current_user
 
     redirect_to root_path
   end
