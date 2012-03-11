@@ -9,7 +9,7 @@ gem 'omniauth-github'
 gem 'haml'
 gem 'sass'
 
-gem 'draper'
+gem 'draper', :git => "git://github.com/jcasimir/draper.git"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

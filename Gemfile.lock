@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/jcasimir/draper.git
+  revision: ef368a3a88f951661e9d7cb322c8ada88778e98b
+  specs:
+    draper (0.9.5)
+      activesupport (>= 2.3.10)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -57,8 +64,6 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.0.rc.3)
       compass (~> 0.12.rc.0)
-    draper (0.10.0)
-      activesupport (>= 2.3.10)
     erubis (2.7.0)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
@@ -176,7 +181,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   colorific
   compass-rails
-  draper
+  draper!
   exception_notification
   factory_girl_rails
   haml
