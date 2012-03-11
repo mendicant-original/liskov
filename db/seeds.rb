@@ -1,1 +1,1 @@
-Course.create(name: "Web Development", description: "# Welcome to Web Dev 3.0!")
+Course.find_or_create_by_name(name: "Web Development", description: "# Welcome to Web Dev 3.0!")
