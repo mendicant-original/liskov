@@ -13,6 +13,9 @@ module Clubhouse
         end
 
         OpenStruct.new(JSON.parse(open(url).read))
+      rescue Errno::ENOENT
+        # User file not found when in test mode
+        return nil
       end
     end
   end

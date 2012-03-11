@@ -1,4 +1,7 @@
 Liskov::Application.routes.draw do
-  match '/login' => 'sessions#new'
-  match '/test'  => 'sessions#test'
+  root to: 'dashboard#index'
+
+  match '/auth/:provider/callback' => 'sessions#create'
+  match '/auth/failure'            => 'sessions#failure'
+  match '/logout'                  => 'sessions#destroy', as: 'logout'
 end
