@@ -6,4 +6,5 @@ Liskov::Application.routes.draw do
   match '/logout'                  => 'sessions#destroy', as: 'logout'
 
   resources :courses
+  resources :course_memberships
 end

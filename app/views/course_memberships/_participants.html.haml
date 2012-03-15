@@ -1,0 +1,8 @@
+%h2 Participants
+
+%ul
+  - @members.each do |membership|
+    %li
+      = "#{membership.person.name} // #{membership.role}"
+      \-
+      = link_to "Remove", course_membership_path(membership), :method => :delete
