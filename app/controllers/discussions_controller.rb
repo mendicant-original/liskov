@@ -14,6 +14,8 @@ class DiscussionsController < ApplicationController
     end
   end
 
+  private
+  
   def find_course
     @course = Course.find(params[:course_id])
   end
