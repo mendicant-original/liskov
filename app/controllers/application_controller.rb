@@ -31,6 +31,6 @@ class ApplicationController < ActionController::Base
   end
 
   def login_path
-    Rails.env.development? ? '/auth/developer' : '/auth/github'
+    Rails.env.production? ? '/auth/github' : '/auth/developer'
   end
 end
