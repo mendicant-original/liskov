@@ -1,4 +1,4 @@
-module Clubhouse
+1module Clubhouse
   module Client
     PersonNotFound = Class.new(Exception)
 
