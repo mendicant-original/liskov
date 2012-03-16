@@ -6,8 +6,4 @@ class Course < ActiveRecord::Base
     @people ||= course_memberships.map {|cm| cm.person }
   end
 
-  def add_task(description)
-    tasks.create(description: description)
-  end
-
 end
