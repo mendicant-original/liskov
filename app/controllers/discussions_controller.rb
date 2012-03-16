@@ -2,7 +2,7 @@ class DiscussionsController < ApplicationController
   before_filter :find_course
 
   def index
-    @discussions = case params[:type]
+    @discussions = case params[:category]
     when "conversation"
       Discussion.conversations
     when "review"
