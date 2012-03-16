@@ -1,0 +1,8 @@
+= form_for Task.new(course_id: @course.id) do |f|
+  = f.hidden_field :course_id
+  %p
+    = f.label :description, "Description"
+    %br
+    = f.text_field :description
+  %p
+    = f.submit "Add to course"

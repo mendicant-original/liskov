@@ -7,4 +7,5 @@ Liskov::Application.routes.draw do
 
   resources :courses
   resources :course_memberships
+  resources :tasks
 end

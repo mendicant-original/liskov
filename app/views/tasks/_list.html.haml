@@ -1,0 +1,8 @@
+%h2 Tasks
+
+%ul
+  - @tasks.each do |task|
+    %li
+      = "#{task.description}"
+      \-
+      = link_to "Remove", task_path(task), :method => :delete
