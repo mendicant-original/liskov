@@ -13,6 +13,14 @@
 
 ActiveRecord::Schema.define(:version => 20120316053737) do
 
+  create_table "course_memberships", :force => true do |t|
+    t.integer  "course_id"
+    t.string   "person_github_nickname"
+    t.string   "role"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
   create_table "courses", :force => true do |t|
     t.string   "name"
     t.text     "description"
