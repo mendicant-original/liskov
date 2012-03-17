@@ -1,6 +1,20 @@
-class Discussion < ActiveRecord::Base
-  belongs_to :course
+class Discussion < ActiveRecord::Base  
+  VALID_CATEGORIES = ["conversations", "reviews", "evaluations"]
 
+  belongs_to :course
+  
+  def self.search(params)
+    results = params["state"] =="closed" ? inactive : active
+    
+    category = params["category"]
+    
+    if VALID_CATEGORIES.include?(category)
+      results.send(category)
+    else
+      results.conversations 
+    end
+  end
+  
   def self.active
     where(:archived => false)
   end
@@ -10,14 +24,14 @@ class Discussion < ActiveRecord::Base
   end
   
   def self.conversations
-    where(:category => "conversation")
+    where(:category => "conversations")
   end
 
   def self.reviews
-    where(:category => "review")
+    where(:category => "reviews")
   end
 
   def self.evaluations
-    where(:category => "evaluation")
+    where(:category => "evaluations")
   end
 end

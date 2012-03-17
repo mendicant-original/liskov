@@ -31,19 +31,19 @@ class DiscussionListDecorator < ApplicationDecorator
   private
 
   def conversations_link
-    link_params = h.params.merge(:category => "conversation")
+    link_params = h.params.merge(:category => "conversations")
 
     h.link_to "Conversations", h.course_discussions_path(link_params)
   end
 
   def reviews_link
-    link_params = h.params.merge(:category => "review")
+    link_params = h.params.merge(:category => "reviews")
 
     h.link_to "Reviews", h.course_discussions_path(link_params)
   end
 
   def evaluations_link
-    link_params = h.params.merge(:category => "evaluation")
+    link_params = h.params.merge(:category => "evaluations")
 
     h.link_to "Evaluations", h.course_discussions_path(link_params)
   end
