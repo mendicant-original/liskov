@@ -30,21 +30,30 @@ class DiscussionListDecorator < ApplicationDecorator
 
   private
 
-  def conversations_link
-    link_params = h.params.merge(:category => "conversations")
-
-    h.link_to "Conversations", h.course_discussions_path(link_params)
+  def conversations_link    
+    if h.params[:category] == "conversations" || h.params[:category].blank?
+      "Conversations"
+    else
+      link_params = h.params.merge(:category => "conversations")
+      h.link_to "Conversations", h.course_discussions_path(link_params)
+    end
   end
 
   def reviews_link
-    link_params = h.params.merge(:category => "reviews")
-
-    h.link_to "Reviews", h.course_discussions_path(link_params)
+    if h.params[:category] == "reviews"
+      "Reviews"
+    else
+      link_params = h.params.merge(:category => "reviews")
+      h.link_to "Reviews", h.course_discussions_path(link_params)
+    end
   end
 
   def evaluations_link
-    link_params = h.params.merge(:category => "evaluations")
-
-    h.link_to "Evaluations", h.course_discussions_path(link_params)
+    if h.params[:category] == "evaluations"
+      "Evaluations"
+    else
+      link_params = h.params.merge(:category => "evaluations")
+      h.link_to "Evaluations", h.course_discussions_path(link_params)
+    end
   end
 end
