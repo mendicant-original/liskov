@@ -29,6 +29,12 @@ class CourseDecorator < ApplicationDecorator
   #     h.content_tag :span, time.strftime("%a %m/%d/%y"),
   #                   :class => 'timestamp'
   #   end
+  #
+  #
+  
+  def instructor?(current_person)
+    course.instructor?(current_person)
+  end
 
   def description
     #TODO process with markdown

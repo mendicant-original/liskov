@@ -13,6 +13,14 @@ class CourseMembership < ActiveRecord::Base
     return nil
   end
 
+  def for_person?(person)
+    person_github_nickname == person.github_nickname
+  end
+
+  def instructor?
+    role == "Instructor"
+  end
+
   private
 
   def person_permissions

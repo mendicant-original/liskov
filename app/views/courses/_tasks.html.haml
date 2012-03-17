@@ -1,1 +1,5 @@
 = render 'tasks/list'
+
+- if @is_instructor
+  = link_to("Add Task", new_course_task_path(@course))
+

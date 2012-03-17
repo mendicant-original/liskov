@@ -6,4 +6,9 @@ class Course < ActiveRecord::Base
     @people ||= course_memberships.map {|cm| cm.person }
   end
 
+  def instructor?(person)
+    membership = course_memberships.find {|cm| cm.for_person?(person) }
+    membership.instructor? if membership
+  end
+
 end
