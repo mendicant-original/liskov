@@ -1,6 +1,14 @@
 class Discussion < ActiveRecord::Base
   belongs_to :course
 
+  def self.active
+    where(:archived => false)
+  end
+  
+  def self.inactive
+    where(:archived => true)
+  end
+  
   def self.conversations
     where(:category => "conversation")
   end

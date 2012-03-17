@@ -4,13 +4,13 @@ class DiscussionsController < ApplicationController
   def index
     @discussions = case params[:category]
     when "conversation"
-      @course.discussions.conversations
+      @course.discussions.active.conversations
     when "review"
-      @course.discussions.reviews
+      @course.discussions.active.reviews
     when "evaluation"
-      @course.discussions.evaluations
+      @course.discussions.active.evaluations
     else
-      @course.discussions.conversations
+      @course.discussions.active.conversations
     end
   end
 
