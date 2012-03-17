@@ -1,0 +1,12 @@
+= form_for CourseMembership.new(course_id: @course.id) do |f|
+  = f.hidden_field :course_id
+  %p
+    = f.label :person_github_nickname, "Github nickname"
+    %br
+    = f.text_field :person_github_nickname
+  %p
+    = f.label :role
+    %br
+    = f.select :role, CourseMembership::ROLES
+  %p
+    = f.submit "Add to course"

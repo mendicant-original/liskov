@@ -8,4 +8,6 @@ Liskov::Application.routes.draw do
   resources :courses do 
     resources :discussions
   end
+
+  resources :course_memberships
 end
