@@ -1,28 +1,11 @@
-= link_to "Conversations", 
-  course_discussions_path(params.merge(:category => "conversation"))
-|
-= link_to "Reviews", 
-  course_discussions_path(params.merge(:category => "review"))
-|
-= link_to "Evaluations", 
-  course_discussions_path(params.merge(:category => "evaluation"))
+= @discussions.category_filters 
 
 %br
 %br
 
-  - if params[:state] == "closed"
-    State: 
-    = link_to "Open", course_discussions_path(params.merge(:state => "open"))
-    |
-    Closed
-  -else
-    State: 
-    Open 
-    |
-    = link_to  "Closed", course_discussions_path(params.merge(:state => "closed"))
+= @discussions.state_filters
 
 %br
 %br
 
-- @discussions.each do |discussion|
-  %h3= discussion.subject
+= @discussions.matched_discussions

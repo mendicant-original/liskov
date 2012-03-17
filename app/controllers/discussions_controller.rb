@@ -13,6 +13,8 @@ class DiscussionsController < ApplicationController
       else
         @course.discussions.inactive.conversations
       end
+
+      @discussions = DiscussionListDecorator.new(@discussions)
     else
       @discussions = case params[:category]
       when "conversation"
@@ -25,6 +27,8 @@ class DiscussionsController < ApplicationController
         @course.discussions.active.conversations
       end
     end
+
+    @discussions = DiscussionListDecorator.new(@discussions)
   end
 
   private
