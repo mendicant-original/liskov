@@ -4,13 +4,13 @@ require "minitest/spec"
 describe Course do
 
   before do
-    @course = Course.create
+    @course = Course.new
   end
 
   describe "adding a student" do
 
     before do
-      @person = Clubhouse::Client::Person.new('student')
+      @person = clubhouse_person('student')
       @cm = @course.course_memberships.build(person_github_nickname: 'student', role: 'Student')
     end
 
@@ -23,7 +23,7 @@ describe Course do
   describe "adding an instructor" do
 
     before do
-      @person = Clubhouse::Client::Person.new('instructor')
+      @person = clubhouse_person('instructor')
       @cm = @course.course_memberships.build(person_github_nickname: 'instructor', role: 'Instructor')
     end
 
@@ -32,4 +32,9 @@ describe Course do
     end
 
   end
+
+end
+
+def clubhouse_person(github_nickname)
+  Clubhouse::Client::Person.new(github_nickname)
 end
