@@ -16,4 +16,6 @@ end
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
+  teardown { Capybara.reset_sessions! }
 end
+
