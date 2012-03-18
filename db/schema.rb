@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316003602) do
+ActiveRecord::Schema.define(:version => 20120316053737) do
+
   create_table "course_memberships", :force => true do |t|
     t.integer  "course_id"
     t.string   "person_github_nickname"
@@ -27,13 +28,6 @@ ActiveRecord::Schema.define(:version => 20120316003602) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "tasks", :force => true do |t|
-    t.integer  "course_id"
-    t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "discussions", :force => true do |t|
     t.string   "category"
     t.text     "subject"
@@ -42,4 +36,12 @@ ActiveRecord::Schema.define(:version => 20120316003602) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "tasks", :force => true do |t|
+    t.integer  "course_id"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
 end

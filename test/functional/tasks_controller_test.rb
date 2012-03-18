@@ -1,22 +1,23 @@
 require "test_helper"
 
 class TasksControllerTest < ActionController::TestCase
-  fixtures :all
 
   def setup
+    cm = Factory(:instructor)
+    @course = cm.course
     @controller.current_person = clubhouse_person("instructor")
   end
 
   test "#new is not allowed to students" do
     @controller.current_person = clubhouse_person("student")
 
-    get(:new, course_id: courses(:webdev).id)
-    assert_redirected_to(courses(:webdev))
+    get(:new, course_id: @course.id)
+    assert_redirected_to(@course)
     assert flash[:alert]
   end
 
   test "#new is allowed to instructors" do
-    get(:new, course_id: courses(:webdev).id)
+    get(:new, course_id: @course.id)
     assert_template "new"
   end
 
