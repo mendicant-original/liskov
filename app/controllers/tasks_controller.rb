@@ -7,14 +7,23 @@ class TasksController < ApplicationController
 
   def create
     task = @course.tasks.build(params[:task])
-    task.save!
-    redirect_to course_path(@course)
+
+    if task.save
+      redirect_to @course, flash: { success: "Task created" }
+    else
+      redirect_to new_course_task_path(@course)
+    end
   end
 
   def destroy
     task = Task.find(params[:id])
-    task.destroy
-    redirect_to course_path(task.course)
+
+    if task.destroy
+      flash[:success] = "Task removed successfully" 
+    else
+      flash[:error] = "Sorry, there was an error remove the task from the course"
+    end
+    redirect_to @course 
   end
 
   private
@@ -22,4 +31,5 @@ class TasksController < ApplicationController
   def find_course
     @course = Course.find(params[:course_id])
   end
+
 end
