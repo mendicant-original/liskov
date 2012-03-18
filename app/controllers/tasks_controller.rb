@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     if task.save
       redirect_to @course, flash: { success: "Task created" }
     else
-      render :new
+      redirect_to new_course_task_path(@course)
     end
   end
 
