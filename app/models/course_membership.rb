@@ -15,8 +15,17 @@ class CourseMembership < ActiveRecord::Base
     return nil
   end
 
-  def instructor?
-    role == "Instructor"
+  def has_role?(has_role)
+    #TODO: turn ROLES into a hash
+    
+    case has_role
+      when :instructor
+        role == "Instructor"
+      when :student
+        role == "Student"
+      when :mentor
+        role == "Mentor"
+    end
   end
 
   private

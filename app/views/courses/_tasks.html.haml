@@ -1,5 +1,5 @@
 = render 'tasks/list'
 
-- if @is_instructor
+- if @course.has_role?(:instructor, current_person)
   = link_to("Add Task", new_course_task_path(@course))
 

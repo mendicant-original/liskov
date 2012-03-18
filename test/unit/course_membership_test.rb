@@ -9,7 +9,15 @@ describe CourseMembership do
     end
 
     it "should not identify the student as an instructor" do
-      @membership.instructor?.must_equal false
+      @membership.has_role?(:instructor).must_equal false
+    end
+
+    it "should not identify the student as an mentor" do
+      @membership.has_role?(:mentor).must_equal false
+    end
+
+    it "should identify the student as a student" do
+      @membership.has_role?(:student).must_equal true 
     end
   end
 
@@ -18,8 +26,16 @@ describe CourseMembership do
       @membership = CourseMembership.new(role: 'Instructor')
     end
 
-    it "should not identify the student as an instructor" do
-      @membership.instructor?.must_equal true
+    it "should identify the instructor as an instructor" do
+      @membership.has_role?(:instructor).must_equal true
+    end
+
+    it "should not identify the instructor as an mentor" do
+      @membership.has_role?(:mentor).must_equal false
+    end
+
+    it "should not identify the instructor as a student" do
+      @membership.has_role?(:student).must_equal false 
     end
   end
 end

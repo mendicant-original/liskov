@@ -6,9 +6,9 @@ class Course < ActiveRecord::Base
     @people ||= course_memberships.map {|cm| cm.person }
   end
 
-  def instructor?(person)
+  def has_role?(role, person)
     membership = course_memberships.for_person(person).first
-    membership.instructor? if membership
+    membership.has_role?(role) if membership
   end
 
 end
