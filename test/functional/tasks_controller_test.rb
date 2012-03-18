@@ -3,13 +3,12 @@ require "test_helper"
 class TasksControllerTest < ActionController::TestCase
 
   def setup
-    cm = Factory(:instructor)
-    @course = cm.course
-    @controller.current_person = clubhouse_person("instructor")
+    @course = FactoryGirl.create(:webdev)
+    @controller.current_person = build_person(:instructor, @course)
   end
 
   test "#new is not allowed to students" do
-    @controller.current_person = clubhouse_person("student")
+    @controller.current_person = build_person(:student)
 
     get(:new, course_id: @course.id)
     assert_redirected_to(@course)

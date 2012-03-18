@@ -5,9 +5,8 @@ require "capybara/rails"
 
 Clubhouse::Client.test_mode = true
 
-def clubhouse_person(github_nickname)
-  # FIXME: duplicates code from ApplicationController
-  PersonDecorator.new(Clubhouse::Client::Person.new(github_nickname))
+def build_person(person, course = nil)
+  PersonDecorator.new(FactoryGirl.build(person, course: course))
 end
 
 class ActiveSupport::TestCase
@@ -15,16 +14,7 @@ end
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
-  setup    { Factory(:instructor) }
   teardown { Capybara.reset_sessions! }
-
-  def sign_in_as_instructor
-    sign_in clubhouse_person('instructor')
-  end
-
-  def sign_in_as_student
-    sign_in clubhouse_person('student')
-  end
 
   def sign_in(person)
     visit root_url

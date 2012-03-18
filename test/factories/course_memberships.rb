@@ -1,8 +1,7 @@
 FactoryGirl.define do
-  factory :instructor, class: CourseMembership do
-    association :course, factory: 'webdev'
-    person_github_nickname 'instructor'
-    role 'Instructor'
+  factory :course_membership do
+    course                  nil
+    person_github_nickname  nil
+    role                    nil
   end
 end
-
