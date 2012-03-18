@@ -12,3 +12,6 @@
 /config/database.yml
 /config/initializers/omniauth.rb
 /config/initializers/secret_token.rb
+
+# Ignore .rvmrc files
+.rvmrc

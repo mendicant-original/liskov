@@ -33,6 +33,14 @@ bundle install
 bundle exec rake setup
 ```
 
+## Additional Steps
+
+If you want to add mendicant-university/liskov repository as a remote to be able to rebase from, you can do so by issuing the following command at the root of the project directory. Just make sure to replace <repository_alias> with an alias of your choice (`upstream` is a common choice).
+
+```
+git remote add <repository_alias> git@github.com:mendicant-university/liskov.git
+```
+
 ## License
 
 Liskov is released under the [Affero GPL version 3](http://www.gnu.org/licenses/agpl.html).
