@@ -16,16 +16,7 @@ class CourseMembership < ActiveRecord::Base
   end
 
   def has_role?(has_role)
-    #TODO: turn ROLES into a hash
-    
-    case has_role
-      when :instructor
-        role == "Instructor"
-      when :student
-        role == "Student"
-      when :mentor
-        role == "Mentor"
-    end
+    has_role.to_s.capitalize == role.capitalize
   end
 
   private
