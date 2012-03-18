@@ -4,8 +4,11 @@ require 'rails/test_help'
 
 require "capybara/rails"
 
+Clubhouse::Client.test_mode = true
+
 def clubhouse_person(github_nickname)
-  Clubhouse::Client::Person.new(github_nickname)
+  # FIXME: duplicates code from ApplicationController
+  PersonDecorator.new(Clubhouse::Client::Person.new(github_nickname))
 end
 
 class ActiveSupport::TestCase
@@ -28,9 +31,8 @@ class ActionDispatch::IntegrationTest
     visit root_url
     fill_in("Name", with: person.name)
     fill_in("Email", with: person.email)
-    fill_in("Nickname", with: person.github_nickname) 
+    fill_in("Nickname", with: person.github_nickname)
     click_button "Sign In"
     assert_includes(page.body, "Welcome to Liskov")
   end
 end
-
