@@ -9,8 +9,7 @@ class TasksController < ApplicationController
     task = @course.tasks.build(params[:task])
 
     if task.save
-      flash[:success] = "Task created."
-      redirect_to @course
+      redirect_to @course, flash: { success: "Task created" }
     else
       render :new
     end
