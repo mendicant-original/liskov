@@ -72,6 +72,15 @@ task :setup do
     Rake::Task["db:seed"].invoke
   end
 
+  section "Add mendicant-university/liskov as upstream" do
+    upstream_exists = `git remote | grep upstream`
+    if upstream_exists.empty?
+      sh %{ git remote add upstream git@github.com:mendicant-university/liskov.git } do |ok, res|
+        puts "Unable to add main liskov repo as upstream: Status => #{res.exitstatus}" if !ok
+      end
+    end
+  end
+
   puts # Empty Line
   puts "==== Setup Complete ====".color(:green)
   puts # Empty Line
