@@ -4,16 +4,33 @@ require 'rails/test_help'
 
 require "capybara/rails"
 
-class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
-  fixtures :all
+def clubhouse_person(github_nickname)
+  Clubhouse::Client::Person.new(github_nickname)
+end
 
-  # Add more helper methods to be used by all tests here...
+class ActiveSupport::TestCase
+  fixtures :all
 end
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
+  teardown { Capybara.reset_sessions! }
+
+  def sign_in_as_instructor
+    sign_in clubhouse_person('instructor')
+  end
+
+  def sign_in_as_student
+    sign_in clubhouse_person('student')
+  end
+
+  def sign_in(person)
+    visit root_url
+    fill_in("Name", with: person.name)
+    fill_in("Email", with: person.email)
+    fill_in("Nickname", with: person.github_nickname) 
+    click_button "Sign In"
+    assert_includes(page.body, "Welcome to Liskov")
+  end
 end
+

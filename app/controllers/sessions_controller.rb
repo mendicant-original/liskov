@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 
   def create
     begin
-      person = Clubhouse::Client::Person.new(auth_hash['info']['nickname'])
+      person = clubhouse_person(auth_hash['info']['nickname'])
     rescue Clubhouse::Client::PersonNotFound
       flash[:error] = "Sorry, but we couldn't find your record in Clubhouse"
     end

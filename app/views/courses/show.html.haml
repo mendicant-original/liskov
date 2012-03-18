@@ -1,7 +1,4 @@
 %h1= @course.name
 
-- if current_person.permissions["Liskov"] == "Instructor"
-  = link_to("Add Task", new_course_task_path(@course))
-
 = render 'participants'
 = render 'tasks'
