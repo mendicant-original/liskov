@@ -7,7 +7,7 @@ class Course < ActiveRecord::Base
   end
 
   def instructor?(person)
-    membership = course_memberships.find {|cm| cm.for_person?(person) }
+    membership = course_memberships.for_person(person).first
     membership.instructor? if membership
   end
 

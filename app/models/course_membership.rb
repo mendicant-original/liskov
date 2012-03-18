@@ -7,14 +7,12 @@ class CourseMembership < ActiveRecord::Base
   validates_uniqueness_of :person_github_nickname, :scope => :course_id
   validate :person_permissions
 
+  scope :for_person, lambda { |person| where(person_github_nickname: person.github_nickname) }
+
   def person
     @person ||= Clubhouse::Client::Person.new(person_github_nickname)
   rescue Clubhouse::Client::PersonNotFound
     return nil
-  end
-
-  def for_person?(person)
-    person_github_nickname == person.github_nickname
   end
 
   def instructor?

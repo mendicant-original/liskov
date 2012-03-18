@@ -9,9 +9,10 @@ class TasksController < ApplicationController
     task = @course.tasks.build(params[:task])
 
     if task.save
-      redirect_to course_path(@course)
+      flash[:success] = "Task created."
+      redirect_to @course
     else
-      flash[:error] = "Sorry, there was an error adding the task to the course"
+      render :new
     end
   end
 
@@ -19,10 +20,11 @@ class TasksController < ApplicationController
     task = Task.find(params[:id])
 
     if task.destroy
-      redirect_to course_path(task.course)
+      flash[:success] = "Task removed successfully" 
     else
       flash[:error] = "Sorry, there was an error remove the task from the course"
     end
+    redirect_to @course 
   end
 
   private
@@ -30,4 +32,5 @@ class TasksController < ApplicationController
   def find_course
     @course = Course.find(params[:course_id])
   end
+
 end
