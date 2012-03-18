@@ -11,25 +11,23 @@ FactoryGirl.define do
     permissions     Hash[[["Clubhouse", "Administrator"],
                           ["Community", "Administrator"],
                           ["Liskov",    "Administrator"]]]
-
-    course_membership {
-      FactoryGirl.create(:course_membership, course: course,
-                          person_github_nickname: "#{github_nickname}",
-                          role: "#{permissions['Liskov']}") if course
-    }
   end
 
   factory :instructor, parent: "person" do
     github_nickname "instructor"
-    permissions     Hash[[["Clubhouse", "Instructor"],
-                          ["Community", "Instructor"],
-                          ["Liskov",    "Instructor"]]]
+    course_membership {
+      FactoryGirl.create(:course_membership, course: course,
+                          person_github_nickname: "#{github_nickname}",
+                          role: "Instructor") if course
+    }
   end
 
   factory :student, parent: "person" do
     github_nickname "student"
-    permissions     Hash[[["Clubhouse", "Student"],
-                          ["Community", "Student"],
-                          ["Liskov",    "Student"]]]
+    course_membership {
+      FactoryGirl.create(:course_membership, course: course,
+                          person_github_nickname: "#{github_nickname}",
+                          role: "Student") if course
+    }
   end
 end
