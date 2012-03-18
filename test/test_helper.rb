@@ -1,7 +1,6 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-
 require "capybara/rails"
 
 Clubhouse::Client.test_mode = true
@@ -12,11 +11,11 @@ def clubhouse_person(github_nickname)
 end
 
 class ActiveSupport::TestCase
-  fixtures :all
 end
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
+  setup    { Factory(:instructor) }
   teardown { Capybara.reset_sessions! }
 
   def sign_in_as_instructor
