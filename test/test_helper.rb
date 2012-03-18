@@ -15,7 +15,6 @@ end
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
-  setup    { Factory(:instructor) }
   teardown { Capybara.reset_sessions! }
 
   def sign_in_as_instructor

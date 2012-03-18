@@ -1,6 +1,9 @@
 require "test_helper"
 
 class TasksTest < ActionDispatch::IntegrationTest
+
+  setup { Factory(:instructor) }
+
   test "an instructor can create a new course task" do
     sign_in_as_instructor
 
