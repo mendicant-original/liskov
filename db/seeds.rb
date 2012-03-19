@@ -18,7 +18,7 @@ conversations = [ "How awesome is Jordan Byron?",
 
 conversations.each do |e|
   course.discussions.find_or_create_by_subject(
-    :subject => e, :category => "conversation"
+    :subject => e, :category => "conversations"
   )
 end
 
@@ -28,7 +28,7 @@ evaluations =  [ "My s10-e2 is ready for evaluation",
 
 evaluations.each do |e|
   course.discussions.find_or_create_by_subject(
-    :subject => e, :category => "evaluation"
+    :subject => e, :category => "evaluations"
   )
 end
 
@@ -38,6 +38,6 @@ reviews = ["Messy first spike on my individual project",
 
 reviews.each do |e|
   course.discussions.find_or_create_by_subject(
-    :subject => e, :category => "review"
+    :subject => e, :category => "reviews"
   )
 end
