@@ -2,16 +2,8 @@ class DiscussionsController < ApplicationController
   before_filter :find_course
 
   def index
-    @discussions = case params[:category]
-    when "conversation"
-      @course.discussions.conversations
-    when "review"
-      @course.discussions.reviews
-    when "evaluation"
-      @course.discussions.evaluations
-    else
-      @course.discussions.conversations
-    end
+    matches      = Discussion.search(params)
+    @discussions = DiscussionListDecorator.new(matches)
   end
 
   private
