@@ -8,6 +8,7 @@ gem 'omniauth-github'
 
 gem 'haml'
 gem 'sass'
+gem 'gollum'
 
 gem 'draper', :git => "git://github.com/jcasimir/draper.git"
 
