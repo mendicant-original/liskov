@@ -38,4 +38,11 @@ ActiveRecord::Schema.define(:version => 20120317200349) do
     t.boolean  "archived",   :default => false
   end
 
+  create_table "tasks", :force => true do |t|
+    t.integer  "course_id"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
 end

@@ -1,0 +1,7 @@
+= form_for([@course, @task]) do |f|
+  %p
+    = f.label :description, "Description"
+    %br
+    = f.text_field :description
+  %p
+    = f.submit "Create Task"
