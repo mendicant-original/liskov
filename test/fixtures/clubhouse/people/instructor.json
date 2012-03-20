@@ -1,0 +1,10 @@
+{ "name":"Instructor",
+ "email":"instructor@gmail.com",
+ "email_hash":"6d2661c5a65f24c8f0bb579b6e0a0d81",
+ "group":"Visitor",
+ "website":null,
+ "membership_date":null,
+ "github_uid":"1234599",
+ "github_nickname":"instructor",
+ "permissions":{"Clubhouse":"Administrator","Community":"Administrator","Liskov":"Administrator"}
+}

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def current_person
     begin
-      @current_person ||= Clubhouse::Client::Person.new(session[:person_github_nickname])
+      @current_person ||= clubhouse_person(session[:person_github_nickname])
     rescue Clubhouse::Client::PersonNotFound
 
     end
@@ -31,6 +31,13 @@ class ApplicationController < ActionController::Base
   end
 
   def login_path
-    Rails.env.development? ? '/auth/developer' : '/auth/github'
+    Rails.env.production? ? '/auth/github' : '/auth/developer'
   end
+
+  private
+
+  def clubhouse_person(github_nickname)
+    PersonDecorator.new(Clubhouse::Client::Person.new(github_nickname))
+  end
+
 end
