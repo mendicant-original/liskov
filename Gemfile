@@ -29,6 +29,7 @@ group 'test' do
   gem 'factory_girl_rails'
   gem 'colorific'
   gem 'test_notifier'
+  gem 'database_cleaner'
 end
 
 group :production do

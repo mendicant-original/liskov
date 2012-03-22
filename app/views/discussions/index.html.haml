@@ -1,11 +1,11 @@
-= link_to "Conversations", course_discussions_path(:category => "conversation")
-|
-= link_to "Reviews", course_discussions_path(:category => "review")
-|
-= link_to "Evaluations", course_discussions_path(:category => "evaluation")
+= @discussions.category_filters 
 
 %br
 %br
 
-- @discussions.each do |discussion|
-  %h3= discussion.subject
+= @discussions.state_filters
+
+%br
+%br
+
+= @discussions.matched_discussions
