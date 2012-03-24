@@ -10,9 +10,7 @@ class CourseMembership < ActiveRecord::Base
   scope :for_person, lambda { |person| where(person_github_nickname: person.github_nickname) }
 
   def person
-    @person ||= PersonDecorator.new(Clubhouse::Client::Person.new(person_github_nickname))
-  rescue Clubhouse::Client::PersonNotFound
-    return nil
+    @person ||= PersonDecorator.from_github(person_github_nickname)
   end
 
   def has_role?(has_role)
