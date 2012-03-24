@@ -13,9 +13,9 @@ describe "Tasks Integration" do
 
     click_link "Web Development"
     click_link "Add Task"
-    fill_in("Description", with: "Community Service")
+    fill_in("Description", with: "A new course task")
     click_button "Create Task"
-    page.body.must_include("Community Service")
+    page.body.must_include("A new course task")
   end
 
   it "a student can only view course tasks" do

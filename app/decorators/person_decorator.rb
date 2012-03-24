@@ -3,8 +3,14 @@ class PersonDecorator < ApplicationDecorator
 
   allows :name, :email, :github_nickname, :permissions
 
+  def self.from_github(github_nickname)
+      PersonDecorator.new(Clubhouse::Client::Person.new(github_nickname))
+    rescue Clubhouse::Client::PersonNotFound
+      return nil
+  end
+
   def membership_for(course)
-    course.course_memberships.for_person(person).first
+    course.membership_for(person)
   end
 
   def role_for(course)

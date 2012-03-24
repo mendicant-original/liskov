@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :person_required
 
-  helper_method :current_person, :signed_in?, :login_path
+  helper_method :current_person, :signed_in?, :login_path, :clubhouse_person
 
   def current_person
     begin
@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   private
 
   def clubhouse_person(github_nickname)
-    PersonDecorator.new(Clubhouse::Client::Person.new(github_nickname))
+    PersonDecorator.from_github(github_nickname)
   end
 
 end
