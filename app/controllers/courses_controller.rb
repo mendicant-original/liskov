@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   def show
     @course         = CourseDecorator.find(params[:id])
-    @members        = @course.course_memberships
+    @participants   = @course.participants
     @tasks          = @course.tasks
   end
 end

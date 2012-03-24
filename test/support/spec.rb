@@ -1,23 +1,32 @@
 require "support/integration"
 
 module Support
-  class IntegrationSpec < MiniTest::Spec
+  class RailsSpec < MiniTest::Spec
     include Rails.application.routes.url_helpers
-    include Capybara::DSL
-    include Integration
 
     before do
       DatabaseCleaner.start
     end
 
     after do
-      Capybara.reset_sessions!
       DatabaseCleaner.clean
     end
   end
 
-  class ControllerSpec < MiniTest::Spec
-    include Rails.application.routes.url_helpers
+  class IntegrationSpec < RailsSpec
+    include Capybara::DSL
+    include Integration
+
+    before do
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    after do
+      Capybara.reset_sessions!
+    end
+  end
+
+  class ControllerSpec < RailsSpec
     include ActiveSupport::Testing::SetupAndTeardown
 
     alias :method_name :__name__ if defined? :__name__

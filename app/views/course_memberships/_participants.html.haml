@@ -1,8 +1,9 @@
 %h2 Participants
 
 %ul
-  - @members.each do |membership|
+  - @participants.each do |participant|
     %li
-      = "#{membership.person.name} // #{membership.role}"
+      = link_to(participant.name, course_student_path(@course, participant))
+      = "#{participant.role_for(@course)}"
       \-
-      = link_to "Remove", course_membership_path(membership), :method => :delete
+      = link_to "Remove", course_membership_path(participant.membership_for(@course)), :method => :delete
