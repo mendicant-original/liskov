@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
   before_filter :find_course, :find_person, :find_membership
 
   def show
-    puts @membership
+    @student = StudentDecorator.new(@membership)
   end
 
   private
@@ -19,7 +19,7 @@ class StudentsController < ApplicationController
     @person = clubhouse_person(params[:id])
 
     unless @person 
-      redirect_to(course_url(@course), alert: "Student does not exist.") 
+      redirect_to(@course, alert: "Student does not exist.") 
     end
   end
 
@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
     @membership = @course.membership_for(@person)
 
     unless @membership
-      redirect_to(course_url(@course), alert: "Student does not belong to course.") 
+      redirect_to(@course, alert: "Student does not belong to course.") 
     end
   end
 end
