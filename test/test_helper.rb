@@ -6,7 +6,7 @@ require "minitest/spec"
 require "support/spec"
 
 Clubhouse::Client.test_mode = true
-DatabaseCleaner.strategy    = :truncation
+DatabaseCleaner.strategy    = :transaction
 
 def build_person(person, course = nil)
   PersonDecorator.new(FactoryGirl.build(person, course: course))

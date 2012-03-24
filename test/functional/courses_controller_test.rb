@@ -10,5 +10,6 @@ describe CoursesController do
   it "lists participants in course page" do
     get(:show, id: @course.id)
     assigns(:participants).size.must_equal 1
+    assigns(:participants).must_include @student
   end
 end

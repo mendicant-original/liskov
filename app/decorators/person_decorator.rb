@@ -4,9 +4,9 @@ class PersonDecorator < ApplicationDecorator
   allows :name, :email, :github_nickname, :permissions
 
   def self.from_github(github_nickname)
-      PersonDecorator.new(Clubhouse::Client::Person.new(github_nickname))
-    rescue Clubhouse::Client::PersonNotFound
-      return nil
+    PersonDecorator.new(Clubhouse::Client::Person.new(github_nickname))
+  rescue Clubhouse::Client::PersonNotFound
+    return nil
   end
 
   def membership_for(course)
@@ -18,8 +18,9 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def has_role?(role, course)
-    membership = membership_for(course)
-    membership.has_role?(role) if membership
+    role_for(course).to_s.capitalize == role.to_s.capitalize
+    # membership = membership_for(course)
+    # membership.has_role?(role) if membership
   end
 
   def to_param
@@ -28,5 +29,13 @@ class PersonDecorator < ApplicationDecorator
 
   def ==(person)
     github_nickname == person.github_nickname
+  end
+
+  def profile_url(course)
+    if has_role?(:student, course)
+      h.course_student_path(course, self)
+    else
+      "http://community.mendicantuniversity.org/people/#{person.github_nickname}"
+    end
   end
 end

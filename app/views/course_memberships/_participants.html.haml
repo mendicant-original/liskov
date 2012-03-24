@@ -3,7 +3,7 @@
 %ul
   - @participants.each do |participant|
     %li
-      = link_to(participant.name, course_student_path(@course, participant))
+      = link_to(participant.name, participant.profile_url(@course))
       = "#{participant.role_for(@course)}"
       \-
       = link_to "Remove", course_membership_path(participant.membership_for(@course)), :method => :delete
