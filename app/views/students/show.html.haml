@@ -1,4 +1,8 @@
-%ul
+%h3
+  Tasks:
+
+%table#tasks
   - @student.tasks.each do |t|
-    %li= t
+    %tr{:data => {:taskid => t.id}}
+      %td=t.description
   
