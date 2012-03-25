@@ -19,9 +19,9 @@ class TaskDecorator < ApplicationDecorator
   end
 
   def complete_task_link(current_person)
-    h.link_to_if current_person.has_role?(:instructor, course),
-      "Mark as complete",
-      "/"
+    if(current_person.has_role?(:instructor, course))
+      h.link_to "Mark as complete", "/"
+    end
   end
 
   private
