@@ -1,10 +1,13 @@
+%h1
+  = @student.name
+
 %h3
   Tasks:
 
 %table#tasks
   - @student.tasks.each do |t|
     %tr{:data => {:taskid => t.id}}
-      %td.task=t.description
-      %td.status=t.status
+      %td.task=    t.description
+      %td.status=  t.status
       %td.complete=t.complete_task_link(current_person)
   

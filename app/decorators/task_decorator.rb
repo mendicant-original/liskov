@@ -20,7 +20,7 @@ class TaskDecorator < ApplicationDecorator
 
   def complete_task_link(current_person)
     if(current_person.has_role?(:instructor, course))
-      h.link_to "Mark as complete", "/"
+      h.link_to "Mark as complete", "/" 
     end
   end
 
@@ -30,12 +30,12 @@ class TaskDecorator < ApplicationDecorator
     @task
   end
 
-  def course
-    participant.course
-  end
-
   def participant
     @participant
+  end
+
+  def course
+    participant.course
   end
 
 end
