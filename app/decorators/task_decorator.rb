@@ -18,6 +18,10 @@ class TaskDecorator
     status == CompletedTask::NOT_COMPLETE ? "Not complete" : status
   end
 
+  def complete_task_url
+    "/"
+  end
+
   private
 
   def task
