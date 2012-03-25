@@ -6,7 +6,5 @@
     %tr{:data => {:taskid => t.id}}
       %td.task=t.description
       %td.status=t.status
-      %td.complete
-        - if current_person.has_role?(:instructor, @course)
-          =link_to "Mark as complete", t.complete_task_url
+      %td.complete=t.complete_task_link(current_person)
   

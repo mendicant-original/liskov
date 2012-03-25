@@ -1,4 +1,4 @@
-class TaskDecorator
+class TaskDecorator < ApplicationDecorator
 
   def initialize(participant, task)
     @participant = participant
@@ -18,14 +18,20 @@ class TaskDecorator
     status == CompletedTask::NOT_COMPLETE ? "Not complete" : status
   end
 
-  def complete_task_url
-    "/"
+  def complete_task_link(current_person)
+    h.link_to_if current_person.has_role?(:instructor, course),
+      "Mark as complete",
+      "/"
   end
 
   private
 
   def task
     @task
+  end
+
+  def course
+    participant.course
   end
 
   def participant
