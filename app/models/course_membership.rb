@@ -3,6 +3,8 @@ class CourseMembership < ActiveRecord::Base
 
   belongs_to :course
 
+  has_many :completed_tasks
+
   validates_presence_of   :course_id, :role, :person_github_nickname
   validates_uniqueness_of :person_github_nickname, :scope => :course_id
   validate :person_permissions
@@ -18,7 +20,12 @@ class CourseMembership < ActiveRecord::Base
   end
 
   def status_for(task)
-    CompletedTask::NOT_COMPLETE
+    completed = completed_tasks.where(task_id: task.id).first
+    completed ? completed.description : CompletedTask::NOT_COMPLETE
+  end
+
+  def complete_task(task, description)
+    completed_tasks.create(task_id: task.id, description: description)
   end
 
   private

@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120317200349) do
+ActiveRecord::Schema.define(:version => 20120325183301) do
+
+  create_table "completed_tasks", :force => true do |t|
+    t.integer "course_membership_id"
+    t.integer "task_id"
+    t.string  "description"
+  end
 
   create_table "course_memberships", :force => true do |t|
     t.integer  "course_id"
