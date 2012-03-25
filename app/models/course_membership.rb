@@ -1,7 +1,8 @@
 class CourseMembership < ActiveRecord::Base
   ROLES = %w{Student Mentor Instructor}
 
-  belongs_to :course
+  belongs_to  :course
+  has_one     :study_plan
 
   validates_presence_of   :course_id, :role, :person_github_nickname
   validates_uniqueness_of :person_github_nickname, :scope => :course_id
