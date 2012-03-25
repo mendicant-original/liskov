@@ -34,6 +34,12 @@ class ApplicationController < ActionController::Base
     Rails.env.production? ? '/auth/github' : '/auth/developer'
   end
 
+  def find_course
+    @course = Course.find(params[:course_id] || params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to(root_url, alert: "Couldn't find course")
+  end
+
   private
 
   def clubhouse_person(github_nickname)
