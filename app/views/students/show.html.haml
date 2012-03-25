@@ -4,5 +4,6 @@
 %table#tasks
   - @student.tasks.each do |t|
     %tr{:data => {:taskid => t.id}}
-      %td=t.description
+      %td.task=t.description
+      %td.status=t.status
   
