@@ -32,7 +32,7 @@ describe "Student Page Integration" do
     task = @course.tasks.first
 
     within_task(task) do
-      has_link?("Mark as complete").must_equal true, "The link to complete the task does not exist"
+      assert_complete_task_link_exists
     end
     
   end
