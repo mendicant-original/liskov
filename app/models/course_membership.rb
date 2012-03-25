@@ -20,15 +20,22 @@ class CourseMembership < ActiveRecord::Base
   end
 
   def status_for(task)
-    completed = completed_tasks.where(task_id: task.id).first
+    completed = get_completed(task) 
     completed ? completed.description : CompletedTask::NOT_COMPLETE
   end
 
   def complete_task(task, description)
-    completed_tasks.create(task_id: task.id, description: description)
+    #TODO: is there a better way to do an upsert? - cg
+    completed = get_completed(task) || completed_tasks.build(task_id: task.id)
+    completed.description = description
+    completed.save
   end
 
   private
+
+  def get_completed(task)
+    completed_tasks.where(task_id: task.id).first
+  end
 
   def person_permissions
     if person.nil?

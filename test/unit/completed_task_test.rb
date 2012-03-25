@@ -24,5 +24,20 @@ describe CompletedTask do
     it "should have a completed status" do
       @participant.status_for(@task).must_equal "Puzzlenode" 
     end
+
+    describe "when it is updated after completing" do
+      before do
+        @participant.complete_task(@task, "Community")
+      end
+
+      it "should not create another completed task" do
+        @participant.completed_tasks.count.must_equal 1
+      end
+
+      it "should have the updated status" do
+        @participant.status_for(@task).must_equal "Community" 
+      end
+    end
+
   end
 end
