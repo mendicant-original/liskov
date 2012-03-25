@@ -17,6 +17,10 @@ class CourseMembership < ActiveRecord::Base
     has_role.to_s.capitalize == role.capitalize
   end
 
+  def status_for(task)
+    CompletedTask::NOT_COMPLETE
+  end
+
   private
 
   def person_permissions
