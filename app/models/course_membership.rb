@@ -21,10 +21,8 @@ class CourseMembership < ActiveRecord::Base
   private
 
   def person_permissions
-    if person.nil?
-      errors.add(:person_github_nickname, "is not valid")
-    elsif person.permissions['Liskov'].nil?
-      errors.add(:person_github_nickname, "does not have access to Liskov")
+    unless person && person.can_access_liskov?
+      errors.add(:person_github_nickname, "needs Clubhouse ID and access to Liskov")
     end
   end
 end

@@ -19,9 +19,7 @@ describe TasksController do
     response.success?.must_equal true
   end
 
-  it "redirects to root if can't find course" do
-    get(:new, course_id: 'ohai!')
-    response.redirect?.must_equal true
-    flash[:alert].must_equal "Couldn't find course"
+  it "raises 404 if can't find course" do
+    proc { get(:new, course_id: 'ohai!') }.must_raise ActionController::RoutingError
   end
 end
