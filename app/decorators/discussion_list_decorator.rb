@@ -1,5 +1,5 @@
 class DiscussionListDecorator < ApplicationDecorator
-  decorates :discussion
+  decorates :discussion_list, :class => Discussion
 
   def category_filters
     [conversations_link, reviews_link, evaluations_link].join(" | ").html_safe
@@ -23,8 +23,10 @@ class DiscussionListDecorator < ApplicationDecorator
   end
 
   def matched_discussions
-    all.map do |discussion| 
-      h.content_tag(:h3, discussion.subject)
+    discussion_list.all.map do |discussion|
+      discussion = DiscussionDecorator.new(discussion)
+      h.image_tag(discussion.author.gravatar_url(30), :class => "discussion_list") +
+      h.content_tag(:h3, discussion.subject, :class => "discussion_list")
     end.join.html_safe
   end
 

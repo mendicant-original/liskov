@@ -34,4 +34,5 @@ class Discussion < ActiveRecord::Base
   def self.evaluations
     where(:category => "evaluations")
   end
+
 end
