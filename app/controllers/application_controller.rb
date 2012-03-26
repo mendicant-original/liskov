@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   private
 
   def clubhouse_person(github_nickname)
-    PersonDecorator.new(Clubhouse::Client::Person.new(github_nickname))
+    PersonDecorator.from_github_name(github_nickname)
   end
 
 end
