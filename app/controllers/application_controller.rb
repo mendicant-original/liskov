@@ -6,12 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_person, :signed_in?, :login_path, :clubhouse_person
 
   def current_person
-    begin
-      @current_person ||= clubhouse_person(session[:person_github_nickname])
-    rescue Clubhouse::Client::PersonNotFound
-
-    end
-    @current_person
+    @current_person ||= clubhouse_person(session[:person_github_nickname])
   end
 
   def signed_in?
@@ -34,16 +29,20 @@ class ApplicationController < ActionController::Base
     Rails.env.production? ? '/auth/github' : '/auth/developer'
   end
 
-  def find_course
-    @course = Course.find(params[:course_id] || params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to(root_url, alert: "Couldn't find course")
+  protected
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
   end
 
-  private
+  def find_course
+    course_id = params[:course_id] || params[:id]
+    @course = Course.find(course_id)
+  rescue ActiveRecord::RecordNotFound
+    not_found
+  end
 
   def clubhouse_person(github_nickname)
     PersonDecorator.from_github(github_nickname)
   end
-
 end
