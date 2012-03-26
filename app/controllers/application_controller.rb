@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :person_required
 
-  helper_method :current_person, :signed_in?, :login_path, :clubhouse_person
+  helper_method :current_person
 
   def current_person
     @current_person ||= clubhouse_person(session[:person_github_nickname])
