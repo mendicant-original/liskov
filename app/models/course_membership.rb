@@ -1,7 +1,8 @@
 class CourseMembership < ActiveRecord::Base
   ROLES = %w{Student Mentor Instructor}
 
-  belongs_to :course
+  belongs_to  :course
+  has_one     :study_plan
 
   has_many :completed_tasks
 
@@ -38,10 +39,8 @@ class CourseMembership < ActiveRecord::Base
   end
 
   def person_permissions
-    if person.nil?
-      errors.add(:person_github_nickname, "is not valid")
-    elsif person.permissions['Liskov'].nil?
-      errors.add(:person_github_nickname, "does not have access to Liskov")
+    unless person && person.can_access_liskov?
+      errors.add(:person_github_nickname, "needs Clubhouse ID and access to Liskov")
     end
   end
 end

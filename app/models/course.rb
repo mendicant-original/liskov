@@ -8,6 +8,7 @@ class Course < ActiveRecord::Base
   end
 
   def membership_for(person)
+    return nil unless person && person.github_nickname
     course_memberships.for_person(person).first
   end
 end

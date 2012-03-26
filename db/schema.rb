@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120325183301) do
+ActiveRecord::Schema.define(:version => 20120325210755) do
 
   create_table "completed_tasks", :force => true do |t|
     t.integer "course_membership_id"
@@ -42,6 +42,11 @@ ActiveRecord::Schema.define(:version => 20120325183301) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.boolean  "archived",   :default => false
+  end
+
+  create_table "study_plans", :force => true do |t|
+    t.integer "course_membership_id"
+    t.text    "content"
   end
 
   create_table "tasks", :force => true do |t|

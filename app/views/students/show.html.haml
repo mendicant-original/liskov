@@ -1,6 +1,8 @@
 %h1
   = @student.name
 
+%p= link_to("Study plan", course_student_plan_path(@course, @student))
+
 %h3
   Tasks:
 
@@ -10,4 +12,3 @@
       %td.task=    t.description
       %td.status=  t.status
       %td.complete=t.complete_task_link(current_person)
-  

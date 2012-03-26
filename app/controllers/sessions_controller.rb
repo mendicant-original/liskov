@@ -2,15 +2,13 @@ class SessionsController < ApplicationController
   skip_before_filter :person_required
 
   def create
-    begin
-      person = clubhouse_person(auth_hash['info']['nickname'])
-    rescue Clubhouse::Client::PersonNotFound
-      flash[:error] = "Sorry, but we couldn't find your record in Clubhouse"
+    person = clubhouse_person(auth_hash['info']['nickname'])
+
+    if person && person.can_access_liskov?
+      self.current_person = person
+    else
+      flash[:error] = "Sorry, but you need a Clubhouse ID and access to Liskov."
     end
-
-    # TODO check person's permissions for Liskov
-
-    self.current_person = person
 
     redirect_to request.env['omniauth.origin'] || root_path
   end

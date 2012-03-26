@@ -4,9 +4,13 @@ class PersonDecorator < ApplicationDecorator
   allows :name, :email, :github_nickname, :permissions
 
   def self.from_github(github_nickname)
-    PersonDecorator.new(Clubhouse::Client::Person.new(github_nickname))
+    new(Clubhouse::Client::Person.new(github_nickname))
   rescue Clubhouse::Client::PersonNotFound
     return nil
+  end
+
+  def can_access_liskov?
+    permissions.include?('Liskov')
   end
 
   def membership_for(course)

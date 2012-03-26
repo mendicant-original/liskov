@@ -3,15 +3,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :person_required
 
-  helper_method :current_person, :signed_in?, :login_path, :clubhouse_person
+  helper_method :current_person
 
   def current_person
-    begin
-      @current_person ||= clubhouse_person(session[:person_github_nickname])
-    rescue Clubhouse::Client::PersonNotFound
-
-    end
-    @current_person
+    @current_person ||= clubhouse_person(session[:person_github_nickname])
   end
 
   def signed_in?
@@ -34,10 +29,27 @@ class ApplicationController < ActionController::Base
     Rails.env.production? ? '/auth/github' : '/auth/developer'
   end
 
-  private
+  protected
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
+  def find_course
+    course_id = params[:course_id] || params[:id]
+    @course = Course.find(course_id)
+  rescue ActiveRecord::RecordNotFound
+    not_found
+  end
+
+  def find_student
+    @course ||= find_course
+    person = clubhouse_person(params[:student_id] || params[:id])
+    membership = @course.membership_for(person) || not_found
+    @student = StudentDecorator.new(membership)
+  end
 
   def clubhouse_person(github_nickname)
     PersonDecorator.from_github(github_nickname)
   end
-
 end
