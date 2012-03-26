@@ -3,6 +3,7 @@
 %ul
   - @participants.each do |participant|
     %li
+      = image_tag participant.person.gravatar_url(25)
       = link_to(participant.name, participant.profile_url(@course))
       = "#{participant.role_for(@course)}"
       \-

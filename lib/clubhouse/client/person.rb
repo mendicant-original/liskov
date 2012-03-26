@@ -12,10 +12,13 @@ module Clubhouse
         raise PersonNotFound if params.nil?
       end
 
+      def gravatar_url(size=80)
+        "http://gravatar.com/avatar/#{email_hash}?s=#{size}"
+      end
+
       private
 
       attr_accessor :params
-
     end
   end
 end

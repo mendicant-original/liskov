@@ -1,12 +1,12 @@
 class PersonDecorator < ApplicationDecorator
   decorates :person, :class => Clubhouse::Client::Person
 
-  allows :name, :email, :github_nickname, :permissions
-
+  allows :name, :email, :github_nickname, :permissions, :gravatar_url
+  
   def self.from_github(github_nickname)
-    new(Clubhouse::Client::Person.new(github_nickname))
-  rescue Clubhouse::Client::PersonNotFound
-    return nil
+      new(Clubhouse::Client::Person.new(github_nickname))
+    rescue Clubhouse::Client::PersonNotFound
+      return nil
   end
 
   def can_access_liskov?
