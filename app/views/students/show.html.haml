@@ -1,4 +1,5 @@
+%p= link_to("Study plan", course_student_plan_path(@course, @student))
 %ul
   - @student.tasks.each do |t|
     %li= t
-  
+

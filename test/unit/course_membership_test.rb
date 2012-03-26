@@ -1,5 +1,4 @@
 require "test_helper"
-require "minitest/spec"
 
 describe CourseMembership do
   it "has one study plan" do
