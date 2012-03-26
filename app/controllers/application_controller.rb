@@ -42,6 +42,13 @@ class ApplicationController < ActionController::Base
     not_found
   end
 
+  def find_student
+    @course ||= find_course
+    person = clubhouse_person(params[:student_id] || params[:id])
+    membership = @course.membership_for(person) || not_found
+    @student = StudentDecorator.new(membership)
+  end
+
   def clubhouse_person(github_nickname)
     PersonDecorator.from_github(github_nickname)
   end
