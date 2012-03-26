@@ -26,7 +26,9 @@ class DiscussionListDecorator < ApplicationDecorator
     discussion_list.all.map do |discussion|
       discussion = DiscussionDecorator.new(discussion)
       h.image_tag(discussion.author.gravatar_url(30), :class => "discussion_list") +
-      h.content_tag(:h3, discussion.subject, :class => "discussion_list")
+      h.content_tag(:p, discussion.start_date, :class => ["discussion_list","date"]) +
+      h.content_tag(:h3, discussion.subject, :class => "discussion_list") +
+      h.content_tag(:hr)
     end.join.html_safe
   end
 
