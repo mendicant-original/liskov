@@ -20,23 +20,11 @@ class CourseMembership < ActiveRecord::Base
     has_role.to_s.capitalize == role.capitalize
   end
 
-  def status_for(task)
-    completed = get_completed(task) 
-    completed ? completed.description : CompletedTask::NOT_COMPLETE
-  end
-
-  def complete_task(task, description)
-    #TODO: is there a better way to do an upsert? - cg
-    completed = get_completed(task) || completed_tasks.build(task_id: task.id)
-    completed.description = description
-    completed.save
+  def student_tasks
+    StudentTask.build_for(self)
   end
 
   private
-
-  def get_completed(task)
-    completed_tasks.where(task_id: task.id).first
-  end
 
   def person_permissions
     unless person && person.can_access_liskov?

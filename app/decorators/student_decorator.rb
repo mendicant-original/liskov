@@ -6,7 +6,7 @@ class StudentDecorator < ApplicationDecorator
   end
 
   def tasks
-    course_membership.course.tasks.map {|t| TaskDecorator.new(course_membership, t)}
+    course_membership.student_tasks.map {|st| StudentTaskDecorator.new(st)}
   end
 
   def study_plan
@@ -15,5 +15,11 @@ class StudentDecorator < ApplicationDecorator
 
   def to_param
     course_membership.person.to_param
+  end
+
+  private 
+
+  def course
+    course_membership.course
   end
 end

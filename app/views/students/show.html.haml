@@ -8,7 +8,7 @@
 
 %table#tasks
   - @student.tasks.each do |t|
-    %tr{:data => {:taskid => t.id}}
+    %tr{:data => {:taskid => t.task_id}}
       %td.task=    t.description
       %td.status=  t.status
       %td.complete=t.complete_task_link(current_person)
