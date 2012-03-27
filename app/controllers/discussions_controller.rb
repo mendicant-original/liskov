@@ -6,6 +6,10 @@ class DiscussionsController < ApplicationController
     @discussions = DiscussionListDecorator.new(matches)
   end
 
+  def new
+    raise NotImplementedError
+  end
+  
   private
   
   def find_course
