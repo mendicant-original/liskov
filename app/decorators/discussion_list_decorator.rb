@@ -31,11 +31,21 @@ class DiscussionListDecorator < ApplicationDecorator
       h.content_tag(:hr)
     end.join.html_safe
   end
+  
+  def new_discussion_link
+    h.link_to("New Discussion", 
+      h.new_course_discussion_path(:category => category), 
+      :class => ["discussion_list","new"])
+  end
+  
+  def category
+    h.params[:category] || "conversations"
+  end
 
   private
 
   def discussions_link(category_name)
-    if h.params[:category] == category_name
+    if category == category_name
       category_name.capitalize
     else
       link_params = h.params.merge(:category => category_name)
@@ -44,8 +54,6 @@ class DiscussionListDecorator < ApplicationDecorator
   end
 
   def conversations_link    
-    return "Conversations" if h.params[:category].blank?
-
     discussions_link("conversations")
   end
 
