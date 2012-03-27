@@ -1,11 +1,11 @@
-class CompletedTasksController < ApplicationController
+class StudentTasksController < ApplicationController
   before_filter :find_course, :find_student, :find_task
 
   def edit
   end
 
   def update
-    status = params[:completed_task][:status]
+    status = params[:student_task][:status]
     @student_task.complete(status)
 
     if(@student_task.valid?)

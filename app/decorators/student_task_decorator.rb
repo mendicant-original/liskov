@@ -19,14 +19,14 @@ class StudentTaskDecorator < ApplicationDecorator
     course  = student_task.course
     student = student_task.student
     task_id = student_task.task_id
-    h.edit_course_student_completed_tasks_path(course, student, task_id: task_id)
+    h.edit_course_student_student_tasks_path(course, student, task_id: task_id)
   end
 
   def update_url
     course  = student_task.course
     student = student_task.student
     task_id = student_task.task_id
-    h.course_student_completed_tasks_path(course, student, task_id: task_id)
+    h.course_student_student_tasks_path(course, student, task_id: task_id)
   end
 
 end
