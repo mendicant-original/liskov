@@ -1,0 +1,14 @@
+= form_for(@discussion, :url => url) do |f|
+  %p
+    - if @discussion.new_record?
+      = f.hidden_field :category, :value => @category
+      
+    = f.label       :subject
+    %br
+    = f.text_field  :subject, :value => @discussion.subject
+  %p
+    = f.label       :body
+    %br
+    = f.text_area   :body, :value => @discussion.body
+  
+  = f.submit

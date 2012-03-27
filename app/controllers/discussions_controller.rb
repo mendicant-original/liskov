@@ -1,5 +1,6 @@
 class DiscussionsController < ApplicationController
   before_filter :find_course
+  before_filter :find_discussion, :except => [:new, :create, :index]
 
   def index
     matches      = @course.discussions.search(params)
@@ -8,11 +9,17 @@ class DiscussionsController < ApplicationController
 
   def new
     @discussion = Discussion.new
-    @category   = params[:category]
+    # TODO: unify this with decorator logic
+    @category   = params[:category] || "conversations" 
   end
   
-  def edit
-    raise NotImplementedError
+  def update
+    @discussion.update_attributes(params[:discussion])
+    redirect_to course_discussion_path(@course.id, @discussion)
+  end
+  
+  def show
+    @discussion = DiscussionDecorator.decorate(@discussion)
   end
   
   def create
@@ -21,17 +28,13 @@ class DiscussionsController < ApplicationController
                               :course_id => @course.id)
                         
     discussion = Discussion.create(discussion_params)
-    redirect_to course_discussion_path(params[:course_id], discussion)
-  end
-  
-  def show
-    @discussion = DiscussionDecorator.find(params[:id])
+    redirect_to course_discussion_path(@course.id, discussion)
   end
   
   # TODO: Seperate this into an admin feature which really destroys,
   # and an archive route. Also, provide a way to re-open the discussions.
   def destroy
-    Discussion.find(params[:id]).update_attribute(:archived, true)
+    @discussion.update_attribute(:archived, true)
     
     redirect_to course_discussions_path
   end
@@ -40,5 +43,9 @@ class DiscussionsController < ApplicationController
   
   def find_course
     @course = Course.find(params[:course_id])
+  end
+  
+  def find_discussion
+    @discussion = Discussion.find(params[:id])
   end
 end

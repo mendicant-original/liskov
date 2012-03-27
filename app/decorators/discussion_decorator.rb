@@ -16,6 +16,9 @@ class DiscussionDecorator < ApplicationDecorator
     h.content_tag(:h2, discussion.subject)
   end
   
+  def body
+    discussion.body.to_s.html_safe
+  end
   
   # TODO: Support unarchive
   def footer
