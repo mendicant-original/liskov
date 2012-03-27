@@ -4,38 +4,39 @@ require "minitest/spec"
 describe CompletedTask do
 
   before do
-    @course      = FactoryGirl.create(:webdev)
-    @student     = FactoryGirl.create(:student, course: @course) 
-    @task        = @course.tasks.first
-    @participant = @course.membership_for(@student)
+    course            = FactoryGirl.create(:webdev)
+    student           = FactoryGirl.create(:student, course: course) 
+    task              = course.tasks.first
+    @course_membership = course.membership_for(student)
+    @student_task     = StudentTask.new(@course_membership, task) 
   end
 
   describe "when the task is not completed" do
     it "should have an incomplete status" do
-      @participant.status_for(@task).must_equal CompletedTask::NOT_COMPLETE
+      @student_task.status.must_equal CompletedTask::NOT_COMPLETE
     end
   end
 
   describe "when the task is completed" do 
     before do
-      @participant.complete_task(@task, "Puzzlenode")
+      @student_task.complete_task("Puzzlenode")
     end
 
     it "should have a completed status" do
-      @participant.status_for(@task).must_equal "Puzzlenode" 
+      @student_task.status.must_equal "Puzzlenode" 
     end
 
     describe "when it is updated after completing" do
       before do
-        @participant.complete_task(@task, "Community")
+        @student_task.complete_task("Community")
       end
 
       it "should not create another completed task" do
-        @participant.completed_tasks.count.must_equal 1
+        @course_membership.completed_tasks.count.must_equal 1
       end
 
       it "should have the updated status" do
-        @participant.status_for(@task).must_equal "Community" 
+        @student_task.status.must_equal "Community" 
       end
     end
 
