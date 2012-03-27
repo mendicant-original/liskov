@@ -3,7 +3,7 @@ class StudentTaskDecorator < ApplicationDecorator
 
   def status
     status = student_task.status
-    status == CompletedTask::NOT_COMPLETE ? "Not complete" : status
+    status == StudentTask::NOT_COMPLETE ? "Not complete" : status
   end
 
   def complete_task_link(current_person)

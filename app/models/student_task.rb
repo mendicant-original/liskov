@@ -1,4 +1,5 @@
 class StudentTask
+  NOT_COMPLETE = -1
 
   def self.build_for(course_membership)
     course_membership.course.tasks.map {|t| new(course_membership, t) }
@@ -23,7 +24,7 @@ class StudentTask
 
   def status
     completed = get_completed_task
-    completed ? completed.description : CompletedTask::NOT_COMPLETE
+    completed ? completed.description : NOT_COMPLETE
   end
 
   def complete_task(description)

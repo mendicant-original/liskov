@@ -1,7 +1,7 @@
 require "test_helper"
 require "minitest/spec"
 
-describe CompletedTask do
+describe StudentTask do
 
   before do
     course            = FactoryGirl.create(:webdev)
@@ -13,7 +13,7 @@ describe CompletedTask do
 
   describe "when the task is not completed" do
     it "should have an incomplete status" do
-      @student_task.status.must_equal CompletedTask::NOT_COMPLETE
+      @student_task.status.must_equal StudentTask::NOT_COMPLETE
     end
   end
 
