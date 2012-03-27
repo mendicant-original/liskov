@@ -10,6 +10,7 @@ Liskov::Application.routes.draw do
     resources :tasks, :discussions
     resources :students do
       resource :plan, controller: "study_plans"
+      resource :completed_tasks
     end
   end
   resources :course_memberships

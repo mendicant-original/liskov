@@ -22,15 +22,27 @@ class StudentTask
     @task.description
   end
 
+  def student
+    @course_membership.person
+  end
+
+  def valid?
+    @course_membership.valid?
+  end
+
+  def complete?
+    status != StudentTask::NOT_COMPLETE
+  end
+
   def status
     completed = get_completed_task
     completed ? completed.description : NOT_COMPLETE
   end
 
-  def complete_task(description)
+  def complete(status)
     #TODO: is there a better way to do an upsert? - cg
     completed = get_completed_task || completed_tasks.build(task_id: task_id)
-    completed.description = description
+    completed.description = status
     completed.save
   end
 

@@ -4,22 +4,29 @@ require "minitest/spec"
 describe StudentTask do
 
   before do
-    course            = FactoryGirl.create(:webdev)
-    student           = FactoryGirl.create(:student, course: course) 
-    task              = course.tasks.first
+    course             = FactoryGirl.create(:webdev)
+    student            = FactoryGirl.create(:student, course: course) 
+    task               = course.tasks.first
     @course_membership = course.membership_for(student)
-    @student_task     = StudentTask.new(@course_membership, task) 
+    @student_task      = StudentTask.new(@course_membership, task) 
   end
 
   describe "when the task is not completed" do
+
     it "should have an incomplete status" do
-      @student_task.status.must_equal StudentTask::NOT_COMPLETE
+      @student_task.complete?.must_equal false 
     end
+
   end
 
   describe "when the task is completed" do 
+
     before do
-      @student_task.complete_task("Puzzlenode")
+      @student_task.complete("Puzzlenode")
+    end
+
+    it "should be complete" do
+      @student_task.complete?.must_equal true
     end
 
     it "should have a completed status" do
@@ -27,8 +34,9 @@ describe StudentTask do
     end
 
     describe "when it is updated after completing" do
+
       before do
-        @student_task.complete_task("Community")
+        @student_task.complete("Community")
       end
 
       it "should not create another completed task" do
@@ -38,6 +46,7 @@ describe StudentTask do
       it "should have the updated status" do
         @student_task.status.must_equal "Community" 
       end
+
     end
 
   end
