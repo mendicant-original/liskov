@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     Rails.env.production? ? '/auth/github' : '/auth/developer'
   end
 
-  protected
+  private
 
   def not_found
     raise ActionController::RoutingError.new('Not Found')
