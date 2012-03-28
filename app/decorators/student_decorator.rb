@@ -10,7 +10,7 @@ class StudentDecorator < ApplicationDecorator
   end
 
   def study_plan
-    course_membership.study_plan || course_membership.create_study_plan
+    StudyPlan.find_or_create_by_course_membership_id(course_membership)
   end
 
   def to_param
