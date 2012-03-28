@@ -6,9 +6,9 @@ class StudentTasksController < ApplicationController
 
   def update
     status = params[:student_task][:status]
-    @student_task.complete(status)
+    result = @student_task.complete(status)
 
-    if(@student_task.valid?)
+    if(result)
       url = course_student_path(@course, @student)
       redirect_to(url, notice: "Task completed")
     else

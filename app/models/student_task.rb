@@ -26,12 +26,8 @@ class StudentTask
     @course_membership.person
   end
 
-  def valid?
-    @course_membership.valid?
-  end
-
   def complete?
-    status != StudentTask::NOT_COMPLETE
+    status != NOT_COMPLETE
   end
 
   def status
@@ -39,7 +35,7 @@ class StudentTask
   end
 
   def complete(status)
-    completed = completed_task || completed_tasks.build(task_id: task_id)
+    completed = completed_tasks.find_or_create_by_task_id(task_id: task_id)
     completed.description = status
     completed.save
   end
