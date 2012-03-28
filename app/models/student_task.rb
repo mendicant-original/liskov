@@ -35,13 +35,11 @@ class StudentTask
   end
 
   def status
-    completed = get_completed_task
-    completed ? completed.description : NOT_COMPLETE
+    completed_task ? completed_task.description : NOT_COMPLETE
   end
 
   def complete(status)
-    #TODO: is there a better way to do an upsert? - cg
-    completed = get_completed_task || completed_tasks.build(task_id: task_id)
+    completed = completed_task || completed_tasks.build(task_id: task_id)
     completed.description = status
     completed.save
   end
@@ -52,7 +50,7 @@ class StudentTask
     @course_membership.completed_tasks
   end
 
-  def get_completed_task
+  def completed_task
     completed_tasks.where(task_id: task_id).first
   end
 
