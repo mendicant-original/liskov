@@ -1,7 +1,11 @@
 require "test_helper"
-require "minitest/spec"
 
 describe CourseMembership do
+  it "has one study plan" do
+    plan = StudyPlan.new
+    membership = CourseMembership.new(study_plan: plan)
+    membership.study_plan.must_equal plan
+  end
 
   describe "adding a student" do
     before do
@@ -17,7 +21,7 @@ describe CourseMembership do
     end
 
     it "should identify the student as a student" do
-      @membership.has_role?(:student).must_equal true 
+      @membership.has_role?(:student).must_equal true
     end
   end
 
@@ -35,8 +39,7 @@ describe CourseMembership do
     end
 
     it "should not identify the instructor as a student" do
-      @membership.has_role?(:student).must_equal false 
+      @membership.has_role?(:student).must_equal false
     end
   end
 end
-

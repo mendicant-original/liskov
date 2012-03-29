@@ -1,0 +1,7 @@
+%p
+  = @student_task.description
+
+= form_tag @student_task.update_url, method: :put do
+  = label :student_task_, :status
+  = text_field :student_task, :status 
+  = submit_tag "Submit"

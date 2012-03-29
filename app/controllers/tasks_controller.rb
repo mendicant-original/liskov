@@ -33,10 +33,4 @@ class TasksController < ApplicationController
       redirect_to(@course, alert: "Unauthorized access")
     end
   end
-
-  def find_course
-    @course = Course.find(params[:course_id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to(root_url, alert: "Couldn't find course")
-  end
 end
