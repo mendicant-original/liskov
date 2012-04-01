@@ -1,0 +1,3 @@
+= form_for(@study_plan, url: course_student_plan_path(@course, @student)) do |f|
+  = f.text_area :content
+  = f.submit "Save changes"
