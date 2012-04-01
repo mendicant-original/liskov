@@ -1,2 +1,4 @@
 - if current_person.has_role?(:instructor, @course)
   %p= link_to("Edit plan", edit_course_student_plan_path(@course, @student))
+
+%p= @study_plan.content

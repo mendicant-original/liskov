@@ -20,6 +20,15 @@ describe "Study plans Integration" do
     click_link "Web Development"
     click_link "Student"
     click_link "Study plan"
-    page.body.must_include "Edit plan"
+    click_link "Edit plan"
+    page.has_selector?("textarea#study_plan_content").must_equal true
+  end
+
+  it "parses Markdown" do
+    sign_in(@student)
+    click_link "Web Development"
+    click_link "Student"
+    click_link "Study plan"
+    page.body.must_include "<h2>Study Plan</h2>"
   end
 end
