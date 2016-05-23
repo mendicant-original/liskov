@@ -1,0 +1,4 @@
+%h2 Edit your discussion
+
+= render :partial => "form",  
+          :locals => { :url => course_discussion_path(@course.id, @discussion) }

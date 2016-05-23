@@ -1,6 +1,7 @@
 class Discussion < ActiveRecord::Base  
   VALID_CATEGORIES = ["conversations", "reviews", "evaluations"]
 
+  validates_presence_of :category
   belongs_to :course
   
   def self.search(params)

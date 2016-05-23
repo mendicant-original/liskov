@@ -1,5 +1,5 @@
 class DiscussionListDecorator < ApplicationDecorator
-  decorates :discussion
+  decorates :discussions, :class => Discussion
 
   def category_filters
     [conversations_link, reviews_link, evaluations_link].join(" | ").html_safe
@@ -23,15 +23,33 @@ class DiscussionListDecorator < ApplicationDecorator
   end
 
   def matched_discussions
-    all.map do |discussion| 
-      h.content_tag(:h3, discussion.subject)
+    discussions.all.map do |discussion|
+      course     = discussion.course
+      discussion = DiscussionDecorator.new(discussion)
+      h.image_tag(discussion.author.gravatar_url(30), :class => "discussions") +
+      h.content_tag(:p, discussion.start_date, :class => ["discussions","date"]) +
+      h.link_to(
+        h.content_tag(:h3, discussion.subject, :class => "discussions"),
+        h.course_discussion_path(course, discussion), 
+          :class => ["discussions","show"]) +
+      h.content_tag(:hr)
     end.join.html_safe
+  end
+  
+  def new_discussion_link
+    h.link_to("New Discussion", 
+      h.new_course_discussion_path(:category => category), 
+      :class => ["discussions","new"])
+  end
+  
+  def category
+    h.params[:category] || "conversations"
   end
 
   private
 
   def discussions_link(category_name)
-    if h.params[:category] == category_name
+    if category == category_name
       category_name.capitalize
     else
       link_params = h.params.merge(:category => category_name)
@@ -40,8 +58,6 @@ class DiscussionListDecorator < ApplicationDecorator
   end
 
   def conversations_link    
-    return "Conversations" if h.params[:category].blank?
-
     discussions_link("conversations")
   end
 
